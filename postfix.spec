@@ -35,7 +35,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 2.6.6
-Release: 2.2%{?dist}
+Release: 6%{?dist}
 Epoch: 2
 Group: System Environment/Daemons
 URL: http://www.postfix.org
@@ -493,12 +493,20 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Thu May 12 2011 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.6.6-2.2
-- fix CVE-2011-1720 (#704136)
-  Resolves: rhbz#704136
+* Thu Feb 13 2014 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.6.6-6
+- Improved status command
+  Related: rhbz#1057594
 
-* Wed Mar 09 2011 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.6.6-2.1
-- fix CVE-2011-0411 (#682978)
+* Fri Jan 24 2014 Phil Knirsch <pknirsch@redhat.com> - 2:2.6.6-5
+- Fix unclean shutdown restart issue with postfix (#1043232)
+  Resolves: rhbz#1043232
+
+* Thu May 12 2011 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.6.6-4
+- fix CVE-2011-1720 (#704137)
+  Resolves: rhbz#704137
+
+* Wed Mar 09 2011 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.6.6-3
+- fix CVE-2011-0411 (#683392)
 
 * Wed May 26 2010 Miroslav Lichvar <mlichvar@redhat.com> 2:2.6.6-2
 - compile with -fno-strict-aliasing (#594307)
