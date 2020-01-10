@@ -35,7 +35,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 2.6.6
-Release: 6%{?dist}
+Release: 6%{?dist}.1
 Epoch: 2
 Group: System Environment/Daemons
 URL: http://www.postfix.org
@@ -76,6 +76,7 @@ Patch8: postfix-large-fs.patch
 Patch9: pflogsumm-1.1.1-datecalc.patch
 Patch10: postfix-2.6.6-CVE-2011-0411.patch
 Patch11: postfix-2.6.6-CVE-2011-1720.patch
+Patch12: postfix-2.6.6-long-size-limits.patch
 
 # Optional patches - set the appropriate environment variables to include
 #                    them when building the package/spec file
@@ -165,6 +166,7 @@ popd
 %endif
 %patch10 -p1 -b .CVE-2011-0411
 %patch11 -p1 -b .CVE-2011-1720
+%patch12 -p1 -b .long-size-limits
 
 for f in README_FILES/TLS_{LEGACY_,}README; do
 	iconv -f iso8859-1 -t utf8 -o ${f}{_,} &&
@@ -493,9 +495,14 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Thu Feb 13 2014 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.6.6-6
+* Tue Sep 15 2015 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.6.6-6.1
+- Backported patch to use long integers for message_size_limit,
+  mailbox_size_limit and virtual_mailbox_limit
+  Resolves: rhbz#1263265
+
+* Mon Feb 17 2014 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.6.6-6
 - Improved status command
-  Related: rhbz#1057594
+  Related: rhbz#1043232
 
 * Fri Jan 24 2014 Phil Knirsch <pknirsch@redhat.com> - 2:2.6.6-5
 - Fix unclean shutdown restart issue with postfix (#1043232)
