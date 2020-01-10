@@ -35,7 +35,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 2.6.6
-Release: 6%{?dist}.1
+Release: 8%{?dist}
 Epoch: 2
 Group: System Environment/Daemons
 URL: http://www.postfix.org
@@ -77,6 +77,8 @@ Patch9: pflogsumm-1.1.1-datecalc.patch
 Patch10: postfix-2.6.6-CVE-2011-0411.patch
 Patch11: postfix-2.6.6-CVE-2011-1720.patch
 Patch12: postfix-2.6.6-long-size-limits.patch
+Patch13: postfix-2.6.6-add-tlsv11-2.patch
+Patch14: postfix-2.6.6-preserve-timestamps.patch
 
 # Optional patches - set the appropriate environment variables to include
 #                    them when building the package/spec file
@@ -167,6 +169,8 @@ popd
 %patch10 -p1 -b .CVE-2011-0411
 %patch11 -p1 -b .CVE-2011-1720
 %patch12 -p1 -b .long-size-limits
+%patch13 -p1 -b .add-tlsv11-2
+%patch14 -p1 -b .preserve-timestamps
 
 for f in README_FILES/TLS_{LEGACY_,}README; do
 	iconv -f iso8859-1 -t utf8 -o ${f}{_,} &&
@@ -239,7 +243,7 @@ for i in man1/mailq.1 man1/newaliases.1 man1/sendmail.1 man5/aliases.5; do
   sed -i "s|^\.so $i|\.so $dest|" man/man?/*.[1-9]
 done
 
-sh postfix-install -non-interactive \
+sh postfix-install -non-interactive -keep-new-mtime \
        install_root=$RPM_BUILD_ROOT \
        config_directory=%{postfix_config_dir} \
        daemon_directory=%{postfix_daemon_dir} \
@@ -495,10 +499,16 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Tue Sep 15 2015 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.6.6-6.1
+* Mon Oct 31 2016 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.6.6-8
+- Backported support for TLS 1.1, TLS 1.2
+  Resolves: rhbz#1287192
+- Preserve timestamps for configuration files
+  Resolves: rhbz#1307066
+
+* Tue Sep 15 2015 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.6.6-7
 - Backported patch to use long integers for message_size_limit,
   mailbox_size_limit and virtual_mailbox_limit
-  Resolves: rhbz#1263265
+  Resolves: rhbz#907387
 
 * Mon Feb 17 2014 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.6.6-6
 - Improved status command
