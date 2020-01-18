@@ -9,9 +9,6 @@
 
 %global sysv2systemdnvr 2.8.12-2
 
-# Build with -O3 on ppc64 (rhbz#1051074)
-%global _performance_build 1
-
 # hardened build if not overrided
 %{!?_hardened_build:%global _hardened_build 1}
 
@@ -41,7 +38,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 2.10.1
-Release: 6%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 Group: System Environment/Daemons
 URL: http://www.postfix.org
@@ -527,20 +524,6 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 2:2.10.1-6
-- Mass rebuild 2014-01-24
-
-* Wed Jan 15 2014 Honza Horak <hhorak@redhat.com> - 2:2.10.1-5
-- Rebuild for mariadb-libs
-  Related: #1045013
-
-* Mon Jan 13 2014 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.10.1-4
-- Build with -O3 on ppc64
-  Resolves: rhbz#1051074
-
-* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 2:2.10.1-3
-- Mass rebuild 2013-12-27
-
 * Tue Aug  6 2013 Jaroslav Škarvada <jskarvad@redhat.com> - 2:2.10.1-2
 - Fixed license
   Resolves: rhbz#993586
