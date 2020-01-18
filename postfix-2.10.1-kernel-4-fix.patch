@@ -1,0 +1,13 @@
+diff --git a/makedefs b/makedefs
+index 93b5949..b83a908 100644
+--- a/makedefs
++++ b/makedefs
+@@ -347,7 +347,7 @@ EOF
+ 		       fi;;
+ 		esac
+ 		;;
+-    Linux.3*)	SYSTYPE=LINUX3
++    Linux.[34]*)	SYSTYPE=LINUX3
+ 		case "$CCARGS" in
+ 		 *-DNO_DB*) ;;
+ 		 *) if [ -f /usr/include/db.h ]

@@ -1,0 +1,240 @@
+diff --git a/conf/canonical b/conf/canonical
+index 720db18..26937ce 100644
+--- a/conf/canonical
++++ b/conf/canonical
+@@ -82,9 +82,14 @@
+ # 
+ # TABLE SEARCH ORDER
+ #        With lookups from indexed files such as DB or DBM, or from
+-#        networked  tables  such  as NIS, LDAP or SQL, patterns are
+-#        tried in the order as listed below:
+-# 
++#        networked   tables   such   as  NIS,  LDAP  or  SQL,  each
++#        user@domain query produces a sequence of query patterns as
++#        described below.
++#
++#        Each  query pattern is sent to each specified lookup table
++#        before trying the next query pattern,  until  a  match  is
++#        found.
++#
+ #        user@domain address
+ #               Replace user@domain by address. This form  has  the
+ #               highest precedence.
+diff --git a/conf/generic b/conf/generic
+index d5ab42a..f66c2f4 100644
+--- a/conf/generic
++++ b/conf/generic
+@@ -72,9 +72,14 @@
+ # 
+ # TABLE SEARCH ORDER
+ #        With lookups from indexed files such as DB or DBM, or from
+-#        networked  tables  such  as NIS, LDAP or SQL, patterns are
+-#        tried in the order as listed below:
+-# 
++#        networked   tables   such   as  NIS,  LDAP  or  SQL,  each
++#        user@domain query produces a sequence of query patterns as
++#        described below.
++#
++#        Each  query pattern is sent to each specified lookup table
++#        before trying the next query pattern,  until  a  match  is
++#        found.
++#
+ #        user@domain address
+ #               Replace user@domain by address. This form  has  the
+ #               highest precedence.
+diff --git a/conf/virtual b/conf/virtual
+index 3be6ab9..1843622 100644
+--- a/conf/virtual
++++ b/conf/virtual
+@@ -81,9 +81,14 @@
+ # 
+ # TABLE SEARCH ORDER
+ #        With lookups from indexed files such as DB or DBM, or from
+-#        networked tables such as NIS, LDAP or  SQL,  patterns  are
+-#        tried in the order as listed below:
+-# 
++#        networked  tables  such  as  NIS,  LDAP   or   SQL,   each
++#        user@domain query produces a sequence of query patterns as
++#        described below.
++#
++#        Each query pattern is sent to each specified lookup  table
++#        before  trying  the  next  query pattern, until a match is
++#        found.
++#
+ #        user@domain address, address, ...
+ #               Redirect  mail  for  user@domain  to address.  This
+ #               form has the highest precedence.
+diff --git a/html/canonical.5.html b/html/canonical.5.html
+index c97f910..1ef4aac 100644
+--- a/html/canonical.5.html
++++ b/html/canonical.5.html
+@@ -87,9 +87,12 @@ CANONICAL(5)                                                      CANONICAL(5)
+               cal line.
+ 
+ <b>TABLE SEARCH ORDER</b>
+-       With lookups from indexed files such as DB or DBM, or from
+-       networked  tables  such  as NIS, LDAP or SQL, patterns are
+-       tried in the order as listed below:
++       With lookups from indexed files such as DB or DBM, or from networked
++       tables  such  as  NIS,  LDAP  or SQL, each <i>user</i>@<i>domain</i> query produces a
++       sequence of query patterns as described below.
++
++       Each query pattern is sent to each specified lookup table before trying
++       the next query pattern, until a match is found.
+ 
+        <i>user</i>@<i>domain address</i>
+               Replace <i>user</i>@<i>domain</i> by <i>address</i>. This form  has  the
+diff --git a/html/generic.5.html b/html/generic.5.html
+index debee93..3294832 100644
+--- a/html/generic.5.html
++++ b/html/generic.5.html
+@@ -77,9 +77,12 @@ GENERIC(5)                                                          GENERIC(5)
+               cal line.
+ 
+ <b>TABLE SEARCH ORDER</b>
+-       With lookups from indexed files such as DB or DBM, or from
+-       networked  tables  such  as NIS, LDAP or SQL, patterns are
+-       tried in the order as listed below:
++       With lookups from indexed files such as DB or DBM, or from networked
++       tables such as NIS, LDAP or SQL,  each  <i>user</i>@<i>domain</i>  query  produces  a
++       sequence of query patterns as described below.
++
++       Each query pattern is sent to each specified lookup table before trying
++       the next query pattern, until a match is found.
+ 
+        <i>user</i>@<i>domain address</i>
+               Replace <i>user</i>@<i>domain</i> by <i>address</i>. This form  has  the
+diff --git a/html/virtual.5.html b/html/virtual.5.html
+index c92826c..7fa6329 100644
+--- a/html/virtual.5.html
++++ b/html/virtual.5.html
+@@ -86,9 +86,12 @@ VIRTUAL(5)                                                          VIRTUAL(5)
+               cal line.
+ 
+ <b>TABLE SEARCH ORDER</b>
+-       With lookups from indexed files such as DB or DBM, or from
+-       networked tables such as NIS, LDAP or  SQL,  patterns  are
+-       tried in the order as listed below:
++       With lookups from indexed files such as DB or DBM, or from networked
++       tables  such  as  NIS,  LDAP  or SQL, each <i>user</i>@<i>domain</i> query produces a
++       sequence of query patterns as described below.
++
++       Each query pattern is sent to each specified lookup table before trying
++       the next query pattern, until a match is found.
+ 
+        <i>user</i>@<i>domain address, address, ...</i>
+               Redirect  mail  for  <i>user</i>@<i>domain</i>  to <i>address</i>.  This
+diff --git a/man/man5/canonical.5 b/man/man5/canonical.5
+index 1bf8d53..267495f 100644
+--- a/man/man5/canonical.5
++++ b/man/man5/canonical.5
+@@ -88,8 +88,12 @@ starts with whitespace continues a logical line.
+ .ad
+ .fi
+ With lookups from indexed files such as DB or DBM, or from networked
+-tables such as NIS, LDAP or SQL, patterns are tried in the order as
+-listed below:
++tables such as NIS, LDAP or SQL, each \fIuser\fR@\fIdomain\fR
++query produces a sequence of query patterns as described below.
++
++Each query pattern is sent to each specified lookup table
++before trying the next query pattern, until a match is
++found.
+ .IP "\fIuser\fR@\fIdomain address\fR"
+ Replace \fIuser\fR@\fIdomain\fR by \fIaddress\fR. This form
+ has the highest precedence.
+diff --git a/man/man5/generic.5 b/man/man5/generic.5
+index 13b9dd0..1153f58 100644
+--- a/man/man5/generic.5
++++ b/man/man5/generic.5
+@@ -80,8 +80,12 @@ starts with whitespace continues a logical line.
+ .ad
+ .fi
+ With lookups from indexed files such as DB or DBM, or from networked
+-tables such as NIS, LDAP or SQL, patterns are tried in the order as
+-listed below:
++tables such as NIS, LDAP or SQL, each \fIuser\fR@\fIdomain\fR
++query produces a sequence of query patterns as described below.
++
++Each query pattern is sent to each specified lookup table
++before trying the next query pattern, until a match is
++found.
+ .IP "\fIuser\fR@\fIdomain address\fR"
+ Replace \fIuser\fR@\fIdomain\fR by \fIaddress\fR. This form
+ has the highest precedence.
+diff --git a/man/man5/virtual.5 b/man/man5/virtual.5
+index da139f8..241bf10 100644
+--- a/man/man5/virtual.5
++++ b/man/man5/virtual.5
+@@ -86,8 +86,12 @@ starts with whitespace continues a logical line.
+ .ad
+ .fi
+ With lookups from indexed files such as DB or DBM, or from networked
+-tables such as NIS, LDAP or SQL, patterns are tried in the order as
+-listed below:
++tables such as NIS, LDAP or SQL, each \fIuser\fR@\fIdomain\fR
++query produces a sequence of query patterns as described below.
++
++Each query pattern is sent to each specified lookup table
++before trying the next query pattern, until a match is
++found.
+ .IP "\fIuser\fR@\fIdomain address, address, ...\fR"
+ Redirect mail for \fIuser\fR@\fIdomain\fR to \fIaddress\fR.
+ This form has the highest precedence.
+diff --git a/proto/canonical b/proto/canonical
+index cdda918..6255ba2 100644
+--- a/proto/canonical
++++ b/proto/canonical
+@@ -76,8 +76,12 @@
+ # .ad
+ # .fi
+ #	With lookups from indexed files such as DB or DBM, or from networked
+-#	tables such as NIS, LDAP or SQL, patterns are tried in the order as
+-#	listed below:
++#	tables such as NIS, LDAP or SQL, each \fIuser\fR@\fIdomain\fR
++#	query produces a sequence of query patterns as described below.
++#
++#	Each query pattern is sent to each specified lookup table
++#	before trying the next query pattern, until a match is
++#	found.
+ # .IP "\fIuser\fR@\fIdomain address\fR"
+ #	Replace \fIuser\fR@\fIdomain\fR by \fIaddress\fR. This form
+ #	has the highest precedence.
+diff --git a/proto/generic b/proto/generic
+index b2e730a..25db840 100644
+--- a/proto/generic
++++ b/proto/generic
+@@ -68,8 +68,12 @@
+ # .ad
+ # .fi
+ #	With lookups from indexed files such as DB or DBM, or from networked
+-#	tables such as NIS, LDAP or SQL, patterns are tried in the order as
+-#	listed below:
++#	tables such as NIS, LDAP or SQL, each \fIuser\fR@\fIdomain\fR
++#	query produces a sequence of query patterns as described below.
++#
++#	Each query pattern is sent to each specified lookup table
++#	before trying the next query pattern, until a match is
++#	found.
+ # .IP "\fIuser\fR@\fIdomain address\fR"
+ #	Replace \fIuser\fR@\fIdomain\fR by \fIaddress\fR. This form
+ #	has the highest precedence.
+diff --git a/proto/virtual b/proto/virtual
+index 8a2d28f..1fc30aa 100644
+--- a/proto/virtual
++++ b/proto/virtual
+@@ -74,8 +74,12 @@
+ # .ad
+ # .fi
+ #	With lookups from indexed files such as DB or DBM, or from networked
+-#	tables such as NIS, LDAP or SQL, patterns are tried in the order as
+-#	listed below:
++#	tables such as NIS, LDAP or SQL, each \fIuser\fR@\fIdomain\fR
++#	query produces a sequence of query patterns as described below.
++#
++#	Each query pattern is sent to each specified lookup table
++#	before trying the next query pattern, until a match is
++#	found.
+ # .IP "\fIuser\fR@\fIdomain address, address, ...\fR"
+ #	Redirect mail for \fIuser\fR@\fIdomain\fR to \fIaddress\fR.
+ #	This form has the highest precedence.
